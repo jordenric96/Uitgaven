@@ -1,76 +1,65 @@
 :root {
-    --bg-color: #0d0d0d;
-    --card-bg: #1a1a1a;
-    --neon-blue: #00f2ff;
-    --neon-pink: #ff00e0;
-    --neon-green: #00ff88;
-    --text-color: #ffffff;
+    --bg: #050505;
+    --card: #111;
+    --accent: #39ff14; /* Matrix Groen */
+    --income: #00f2ff; /* Neon Blauw */
+    --expense: #ff0055; /* Neon Rood */
+    --text: #fff;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Orbitron', sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 15px;
+    overflow-x: hidden;
 }
 
 .dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
 }
 
-.neon-glow h1 {
+header h1 {
     text-align: center;
-    color: var(--neon-blue);
-    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 1.2rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--accent);
 }
 
 .summary-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .card {
-    background: var(--card-bg);
+    background: var(--card);
     padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    border: 2px solid transparent;
-    transition: 0.3s;
+    border-radius: 2px; /* Strakke hoeken voor tech look */
+    border-left: 5px solid var(--accent);
+    position: relative;
+    box-shadow: 10px 10px 0px rgba(0,0,0,1);
 }
 
-.neon-income { border-color: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); }
-.neon-expenses { border-color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
-.neon-balance { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
+.neon-income { border-color: var(--income); }
+.neon-expenses { border-color: var(--expense); }
+.neon-balance { border-color: var(--accent); }
 
-.value {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-top: 10px;
-}
+.card h2 { font-size: 0.8rem; margin: 0; opacity: 0.7; text-transform: uppercase; }
+.value { font-size: 1.8rem; font-weight: 700; margin-top: 5px; }
 
 .charts-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
+    margin-top: 30px;
 }
 
 .chart-card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #333;
+    background: var(--card);
+    padding: 15px;
+    height: 350px;
 }
 
-.chart-card h2 {
-    font-size: 1rem;
-    color: var(--neon-blue);
-    margin-bottom: 20px;
-    text-align: center;
-}
+canvas { width: 100% !important; height: 100% !important; }
