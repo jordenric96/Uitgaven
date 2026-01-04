@@ -5,28 +5,25 @@ async function fetchData() {
     try {
         const response = await fetch(sheetUrl);
         const csvText = await response.text();
-        
-        // Split rijen en verwijder lege regels en koprij
         const lines = csvText.split('\n').filter(line => line.trim() !== '');
         const rows = lines.slice(1); 
 
         let totalIncome = 0;
         let totalExpenses = 0;
-        const categoryData = {};
+        const categoryData = {}; // Hierin worden de subcategorieën opgeslagen
 
         rows.forEach(row => {
             const cols = row.split(',');
             if (cols.length < 2) return;
 
-            // STATUS CHECK: We kijken naar de EERSTE LETTER van de eerste kolom
             const rawStatus = cols[0].trim().toLowerCase();
-            const isIncome = rawStatus.startsWith('i'); // 'in' wordt herkend
-            const isExpense = rawStatus.startsWith('u'); // 'uit' wordt herkend
+            const isIncome = rawStatus.startsWith('i');
+            const isExpense = rawStatus.startsWith('u');
 
-            // BEDRAG FIX: Haal alle troep weg, verander komma in punt
             let rawPrice = cols[1].replace(/[^\d,.-]/g, '').replace(',', '.');
             const price = parseFloat(rawPrice);
 
+            // Kolom 4 (Index 3) is je 'type' (bijv. Supermarkt)
             const category = cols[3] ? cols[3].trim() : 'Overig';
 
             if (!isNaN(price)) {
@@ -34,6 +31,7 @@ async function fetchData() {
                     totalIncome += price;
                 } else if (isExpense) {
                     totalExpenses += price;
+                    // Voeg bedrag toe aan de specifieke categorie
                     categoryData[category] = (categoryData[category] || 0) + price;
                 }
             }
@@ -53,21 +51,43 @@ function renderUI(inc, exp, cats) {
     document.getElementById('totalBalance').innerText = fmt(inc - exp);
 
     const ctx = document.getElementById('expenseCategoryChart').getContext('2d');
-    new Chart(ctx, {
+    
+    // Verwijder oude chart voor soepele refresh
+    if (window.myChart) { window.myChart.destroy(); }
+
+    window.myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: Object.keys(cats),
             datasets: [{
                 data: Object.values(cats),
-                backgroundColor: ['#39ff14', '#00f2ff', '#ff0055', '#ffaa00', '#cc00ff'],
-                borderWidth: 0
+                backgroundColor: ['#39ff14', '#00f2ff', '#ff0055', '#ffaa00', '#cc00ff', '#f39c12', '#1abc9c'],
+                borderWidth: 2,
+                borderColor: '#111'
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'bottom', labels: { color: '#fff', font: { size: 10 } } }
+                legend: { 
+                    position: 'bottom', 
+                    labels: { 
+                        color: '#fff', 
+                        padding: 20, // Ruimte tussen legenda items
+                        font: { size: 12, family: 'Orbitron' } 
+                    } 
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return ` ${context.label}: €${context.raw.toFixed(2)}`;
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: 10
             }
         }
     });
