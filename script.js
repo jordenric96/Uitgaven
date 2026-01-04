@@ -1,4 +1,4 @@
-const sheetUrl = 'JOUW_CSV_LINK_HIER'; // Zorg dat deze link eindigt op output=csv
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTMIw93q5JDiBaFYv2f7zOz0vDotAklqC8CMIJsbYbTastQjEc4lUfbxC89Y1oxT7pbUmdjlqG8BgCn/pubhtml'; // Zorg dat deze link eindigt op output=csv
 
 async function fetchData() {
     try {
