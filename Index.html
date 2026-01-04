@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Financieel Dashboard 💰💸</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="neon-glow">
+            <h1>Neon Financieel Overzicht ✨</h1>
+            <p>Jouw financiële flow in een oogopslag</p>
+        </header>
+
+        <section class="summary-cards">
+            <div class="card neon-income">
+                <h2>Inkomsten 💰</h2>
+                <p id="totalIncome" class="value"></p>
+            </div>
+            <div class="card neon-expenses">
+                <h2>Uitgaven 💸</h2>
+                <p id="totalExpenses" class="value"></p>
+            </div>
+            <div class="card neon-balance">
+                <h2>Saldo 📊</h2>
+                <p id="totalBalance" class="value"></p>
+            </div>
+        </section>
+
+        <section class="charts-section">
+            <div class="chart-card neon-chart">
+                <h2>Maandelijks Overzicht 📅</h2>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+            <div class="chart-card neon-chart">
+                <h2>Uitgaven per Categorie 🏷️</h2>
+                <canvas id="expenseCategoryChart"></canvas>
+            </div>
+            <div class="chart-card neon-chart">
+                <h2>Inkomsten per Categorie 🌟</h2>
+                <canvas id="incomeCategoryChart"></canvas>
+            </div>
+        </section>
+
+        <footer class="neon-glow">
+            <p>Data bijgewerkt vanaf Google Sheet 🚀</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
